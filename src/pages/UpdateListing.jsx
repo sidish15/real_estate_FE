@@ -1,17 +1,17 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
-import { useNavigate ,useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UpdateListing = () => {
-  const navigate=useNavigate()
-  const params=useParams();
+  const navigate = useNavigate()
+  const params = useParams();
   const { currentUser } = useSelector((state) => state.user)
   const [files, setFile] = useState([])
   const [imageUploadError, setImageUploadError] = useState(false)
   const [uploading, setUploading] = useState(false)
-//   console.log(files);
+  //   console.log(files);
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: '',
@@ -30,20 +30,20 @@ const UpdateListing = () => {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  useEffect(()=>{
-        const fetchListing=async()=>{
-        const listingId=params.listingId; //as we have given listingId name in app.jsx
-        // console.log(listingId); id of the listing that we got from url of the page
-        const res=await fetch(`/api/listing/get/${listingId}`);
-        const data=await res.json();
-        if(data.success===false){
-          console.log(data.message);
-          return ;
-        }
-        setFormData(data)
-        }
-        fetchListing();
-  },[])
+  useEffect(() => {
+    const fetchListing = async () => {
+      const listingId = params.listingId; //as we have given listingId name in app.jsx
+      // console.log(listingId); id of the listing that we got from url of the page
+      const res = await fetch(`https://real-estate-yi19.onrender.com/api/listing/get/${listingId}`);
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setFormData(data)
+    }
+    fetchListing();
+  }, [])
 
   const handleImageSubmit = (e) => {
 
@@ -143,7 +143,7 @@ const UpdateListing = () => {
       if (+formData.discountPrice > +formData.regularPrice) return ('Discount price should be less than Regular Price')
       setLoading(true)
       setError(false)
-      const res = await fetch(`/api/listing/update/${params.listingId}`, {
+      const res = await fetch(`https://real-estate-yi19.onrender.com/api/listing/update/${params.listingId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -164,13 +164,6 @@ const UpdateListing = () => {
       setLoading(false)
     }
   }
-
-
-
-
-
-
-
 
   return (
     <main className='p-3 max-w-4xl mx-auto'>
@@ -282,7 +275,7 @@ const UpdateListing = () => {
             </button>
           </div>
           <button
-          disabled={loading ||uploading}
+            disabled={loading || uploading}
             className='p-3 uppercase font-semibold bg-slate-700 rounded-lg hover:opacity-95 disabled:opacity-80 '
           >
             {loading ? "Updating..." : "Update Listing"}

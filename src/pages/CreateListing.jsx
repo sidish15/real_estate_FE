@@ -4,7 +4,7 @@ import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const CreateListing = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.user)
   const [files, setFile] = useState([])
   const [imageUploadError, setImageUploadError] = useState(false)
@@ -126,7 +126,7 @@ const CreateListing = () => {
       if (+formData.discountPrice > +formData.regularPrice) return ('Discount price should be less than Regular Price')
       setLoading(true)
       setError(false)
-      const res = await fetch("/api/listing/create", {
+      const res = await fetch("https://real-estate-yi19.onrender.com/api/listing/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -265,7 +265,7 @@ const CreateListing = () => {
             </button>
           </div>
           <button
-          disabled={loading ||uploading}
+            disabled={loading || uploading}
             className='p-3 uppercase font-semibold bg-slate-700 rounded-lg hover:opacity-95 disabled:opacity-80 '
           >
             {loading ? "Creating..." : "Create Listing"}
