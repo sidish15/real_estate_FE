@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import  { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
-import { getDownloadURL, getStorage, list, ref, uploadBytesResumable } from 'firebase/storage'
+import { getDownloadURL, getStorage,  ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from "../firebase.js"
-import { updateUserStart, updateUserSuccess, updateUserFailure, signInfailure, signInSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, signInStart, signOutUserFailure, signOutUserSuccess, signOutUserStart } from '../redux/user/userSlice.js'
+import { updateUserStart, updateUserSuccess, updateUserFailure,  deleteUserFailure, deleteUserStart, deleteUserSuccess,  signOutUserFailure, signOutUserSuccess, signOutUserStart } from '../redux/user/userSlice.js'
 // import {useNavigate} from 'react-router-dom'
 import { Link } from "react-router-dom"
 
@@ -46,10 +46,9 @@ const Profile = () => {
         setFileUploadError(true);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then
-          ((downloadURL) =>
-            setFormData({ ...formData, avatar: downloadURL })
-          );
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, avatar: downloadURL })
+        );
       }
     )
     // upload.on ends
