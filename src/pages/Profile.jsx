@@ -1,9 +1,9 @@
-import  { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
-import { getDownloadURL, getStorage,  ref, uploadBytesResumable } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from "../firebase.js"
-import { updateUserStart, updateUserSuccess, updateUserFailure,  deleteUserFailure, deleteUserStart, deleteUserSuccess,  signOutUserFailure, signOutUserSuccess, signOutUserStart } from '../redux/user/userSlice.js'
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserSuccess, signOutUserStart } from '../redux/user/userSlice.js'
 // import {useNavigate} from 'react-router-dom'
 import { Link } from "react-router-dom"
 
@@ -118,11 +118,11 @@ const Profile = () => {
       dispatch(signOutUserFailure(error.message))
     }
   }
-
   const handleShowListings = async () => {
     try {
       setShowListingError(false)
-      const res = await fetch(`https://real-estate-yi19.onrender.com/api/user/listings/${currentUser._id}`);
+      const res = await fetch(`http://localhost:8080/api/user/listings/${currentUser._id}`);
+      
       const data = await res.json();
       if (data.success === false) {
         setShowListingError(true)
@@ -134,7 +134,6 @@ const Profile = () => {
       setShowListingError(true)
     }
   }
-
   const handleListingDelete = async (listingId) => {
     try {
       const res = await fetch(`https://real-estate-yi19.onrender.com/api/listing/delete/${listingId}`, {
@@ -148,7 +147,6 @@ const Profile = () => {
       setUserListings((prev) =>
         prev.filter((listing) => listing._id !== listingId)
       )
-      console.log("deleted");
     } catch (error) {
       console.log(error.message);
     }
