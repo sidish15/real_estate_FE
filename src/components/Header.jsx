@@ -6,23 +6,23 @@ import { useSelector } from 'react-redux'
 const Header = () => {
         const { currentUser } = useSelector(state => state.user)
         const [searchTerm, setSearchTerm] = useState('')
-        const navigate=useNavigate()
-        const handleSubmit=(e)=>{
+        const navigate = useNavigate()
+        const handleSubmit = (e) => {
                 e.preventDefault() //to prevent refreshing the page
-                const urlParams=new URLSearchParams(window.location.search) //previous inf in url
+                const urlParams = new URLSearchParams(window.location.search) //previous inf in url
                 console.log(urlParams);
-                urlParams.set('searchTerm',searchTerm) //whatever the previous inf ...set the current one
-                const seachQuery=urlParams.toString(); //as some of them may be number
+                urlParams.set('searchTerm', searchTerm) //whatever the previous inf ...set the current one
+                const seachQuery = urlParams.toString(); //as some of them may be number
                 navigate(`/search?${seachQuery}`)
 
         }
-        useEffect(()=>{
-         const urlParams=new URLSearchParams(location.search)
-         const searchTermFromUrl=urlParams.get('searchTerm')
-         if(searchTermFromUrl){
-                setSearchTerm(searchTermFromUrl)
-         }
-        },[location.search])
+        useEffect(() => {
+                const urlParams = new URLSearchParams(location.search)
+                const searchTermFromUrl = urlParams.get('searchTerm')
+                if (searchTermFromUrl) {
+                        setSearchTerm(searchTermFromUrl)
+                }
+        }, [location.search])
         return (
                 <header>
                         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
@@ -60,7 +60,8 @@ const Header = () => {
                                         </Link>
 
                                         <Link to='/sign-up'>
-                                                <li className=' sm:inline text-slate-700 hover:underline'>Sign Up</li>
+                                                {!currentUser && <li className=' sm:inline text-slate-700 hover:underline'>Sign Up</li>
+                                                }
                                         </Link>
 
                                 </ul>
